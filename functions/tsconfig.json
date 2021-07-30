@@ -1,0 +1,21 @@
+{
+  "parserOptions": {
+    "project": "./tsconfig.json",
+  },
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "outDir": "lib",
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2017",
+    "forceConsistentCasingInFileNames": true
+  },
+  "compileOnSave": true,
+  "include": [
+    "src"
+  ],
+  // "extends": "tsconfig.json",
+  "files":["custom.d.ts"]
+}
