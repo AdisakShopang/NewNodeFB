@@ -91,13 +91,15 @@ const queryUserById = async () => {
             return list;
             
         }
-        let rtndata = [];
-        for(const each of response.docs){
-            console.log(each.id, " => ", each.data());
-            rtndata.push(each.data());
-            // console.log(each.id, " => ", each.data().born);
-        }
-        return rtndata;
+        return null;
+
+        // let rtndata = [];
+        // for(const each of response.docs){
+        //     console.log(each.id, " => ", each.data());
+        //     rtndata.push(each.data());
+        //     // console.log(each.id, " => ", each.data().born);
+        // }
+        // return rtndata;
         
     }catch(e){
         console.log("e:", e);
@@ -105,4 +107,4 @@ const queryUserById = async () => {
     }
 }
 
-export {queryFn, queryUserById}
+export { queryFn, queryUserById };

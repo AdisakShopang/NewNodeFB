@@ -1,18 +1,17 @@
-import * as functions from "firebase-functions";
-
+// import * as functions from "firebase-functions";
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
-
 // export const helloWorld = functions.https.onRequest((request, response) => {
 //   functions.logger.info("Hello logs!", {structuredData: true});
 //   response.send("Hello from Firebase!");
 // });
-
 import { Request, Response } from 'express';
-
+import * as functions from "firebase-functions";
 import { upsertFn } from './methods/addData';
-import { queryFn, queryUserById } from './methods/readData';
 import { deleteFn } from './methods/deleteData';
+import { queryFn, queryUserById } from './methods/readData';
+
+
 
 // import * as aaa from './addData.js';
 
@@ -91,4 +90,6 @@ app.listen(PORT, () => {
 })
 //ทำการ export app ที่เราสร้างขึ้น เพื่อให้สามารถนำไปใช้งานใน project อื่นๆ 
 //เปรียบเสมือนเป็น
-module.exports = functions.region('us-central1').https.onRequest(app);
+// const api = functions.region(`asia-east2`).https.onRequest(app);
+// export { api };
+module.exports = functions.region('asia-east2').https.onRequest(app);
