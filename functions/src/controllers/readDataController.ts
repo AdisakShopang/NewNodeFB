@@ -1,48 +1,31 @@
-// const firebase = require("firebase");
-
-// Required for side-effects
-// require("firebase/firestore");
-
-// Initialize Cloud Firestore through Firebase
-// const apiKeyValue = 'AIzaSyDk8XoVAPr1AHUA0bau_1JHnkFILBNpAc4';
-// const authDomainValue = 'projecttest-b4da4.firebaseapp.com';
-// const projectIdValue = 'projecttest-b4da4';
-// firebase.initializeApp({
-//     apiKey: apiKeyValue,
-//     authDomain: authDomainValue,
-//     projectId: projectIdValue
-// });
-  
-// var db = firebase.firestore();
-
 import { db } from '../configs/configFirestore';
+import { Request, Response } from "express";
 
-// Read data
-const queryFn = async () => {
+const queryFn = async (req: Request, res: Response) => {
+    var message:string = "default" ;
     try{
-        // var usersRef = db.collection("Users").get().then((querySnapshot) => {
-        //     querySnapshot.forEach((doc) => {
-        //         console.log(`${doc.id} => ${doc.data()}`);
-        //     });
-        // });
-
+        // Read data
         const response = await db.collection("Users")
         .where("born", "==", 1815)
         .where("dead", "!=", 9999).get()
+
         // FOR EACH
         // response.forEach((doc) => {
         //             // doc.data() is never undefined for query doc snapshots
         //             console.log(doc.id, " => ", doc.data());
         //             console.log(doc.id, " => ", doc.data().born);
         //         });
+
         // FOR CONST
         for(const each of response.docs){
             console.log(each.id, " => ", each.data());
             console.log(each.id, " => ", each.data().born);
         }
 
-        // TRY CATCH
-        // .get()
+        // THEN CATCH
+        // db.collection("Users")
+        // .where("born", "==", 1815)
+        // .where("dead", "!=", 9999).get()
         // .then((querySnapshot) => {
         //     querySnapshot.forEach((doc) => {
         //         // doc.data() is never undefined for query doc snapshots
@@ -53,17 +36,19 @@ const queryFn = async () => {
         //     console.log("Error getting documents: ", error);
         // });
 
-        // console.log("response:", response);
+        console.log("response:", response);
         // console.log("response:", response.docs);
+        message = "success callReadData" ;
 
     }catch(e){
         console.log("e:", e);
+        message = "fail callReadData" ;
     }
+    return res.send(message);
 }
 
-const queryUserById = async () => {
+const queryUserById = async (req: Request, res: Response) => {
     try{
-
         // let response = await db.collection("Users").doc('111').get()
         // // FOR CONST
         // // for(const each of response.docs){
@@ -91,7 +76,8 @@ const queryUserById = async () => {
             return list;
             
         }
-        return null;
+        // return null;
+        return res.send(response);
 
         // let rtndata = [];
         // for(const each of response.docs){

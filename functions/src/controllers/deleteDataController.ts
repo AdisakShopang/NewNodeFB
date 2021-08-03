@@ -1,24 +1,13 @@
-// const firebase = require("firebase");
-
-// // Required for side-effects
-// require("firebase/firestore");
-
-// // Initialize Cloud Firestore through Firebase
-// const apiKeyValue = 'AIzaSyDk8XoVAPr1AHUA0bau_1JHnkFILBNpAc4';
-// const authDomainValue = 'projecttest-b4da4.firebaseapp.com';
-// const projectIdValue = 'projecttest-b4da4';
-// firebase.initializeApp({
-//     apiKey: apiKeyValue,
-//     authDomain: authDomainValue,
-//     projectId: projectIdValue
-// });
-  
-// var db = firebase.firestore();
-
 import { db } from '../configs/configFirestore';
+import { Request, Response } from "express";
 
-const deleteFn = async (firstnameData:string) => {
+const deleteFn = async (req: Request, res: Response) => {
+    var message:string = "default" ;
     try{
+        // Get data from request
+        const firstnameData:string = req.body.firstname;
+        console.log(firstnameData);
+
         // Delete documents
         const response = await db.collection("Users").doc(firstnameData).delete()
         // .then(() => {
@@ -28,6 +17,7 @@ const deleteFn = async (firstnameData:string) => {
         // });
 
         console.log("response:", response);
+        message = "success callDeleteData" ;
 
         // // Delete fields
         // var userRef = db.collection('Users').doc('222');
@@ -42,7 +32,9 @@ const deleteFn = async (firstnameData:string) => {
 
     }catch(e){
         console.log("e:", e);
+        message = "fail callDeleteData" ;
     }
+    return res.send(message);
 }
 
 export {deleteFn}

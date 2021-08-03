@@ -15,7 +15,7 @@
   
 // var db = firebase.firestore();
 
-import { db } from './configFirestore';
+import { db } from '../configs/configFirestore';
 // import * as functions from "firebase-functions";
 
 // // Add data

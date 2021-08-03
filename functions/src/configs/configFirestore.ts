@@ -2,7 +2,7 @@
 import firebase from 'firebase';
 
 // Required for side-effects
-// require("firebase/firestore");
+require("firebase/firestore");
 
 // Initialize Cloud Firestore through Firebase
 const apiKeyValue = 'AIzaSyD1xMeaECuDh13G_aUvC13a4YDTsLpIB94';
