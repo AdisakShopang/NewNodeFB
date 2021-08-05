@@ -3,12 +3,13 @@
   "scripts": {
     "lint": "eslint \"src/**/*\"",
     "build": "tsc",
-    "serve": "npm run build && firebase emulators:start --only functions",
+    "serve": "kill-port 5001 && npm run build && firebase emulators:start --only functions",
     "all-serve": "npm run build && firebase emulators:start",
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
     "deploy": "npm run build && firebase deploy",
-    "logs": "firebase functions:log"
+    "logs": "firebase functions:log",
+    "nodemon": "nodemon -e ts --exec \"npm run serve\""
   },
   "engines": {
     "node": "12"

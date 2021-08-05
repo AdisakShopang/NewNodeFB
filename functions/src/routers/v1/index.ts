@@ -11,4 +11,6 @@ router.get("/callReadData", queryFn);
 router.get("/callQueryUserById", queryUserById);
 router.delete("/callDeleteData", deleteFn);
 
-export { router };
+export { 
+    router 
+};

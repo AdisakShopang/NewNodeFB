@@ -5,23 +5,63 @@ const deleteFn = async (req: Request, res: Response) => {
     var message:string = "default" ;
     try{
         // Get data from request
-        const firstnameData:string = req.body.firstname;
-        console.log(firstnameData);
+        const docIdData:string = req.body.docId;
+        console.log(docIdData);
 
         // Delete documents
-        const response = await db.collection("Users").doc(firstnameData).delete()
+        // const response = await db.collection("Users").doc(docIdData).delete();
         // .then(() => {
         //     console.log("Document successfully deleted!");
         // }).catch((error) => {
         //     console.error("Error removing document: ", error);
         // });
 
-        console.log("response:", response);
+        // Delete all with condition
+        const resultData = await db.collection("Users").where('born', 'not-in', [1815,1915]).get();
+        // const resultData = await db.collection("Users").where('arrayField', 'array-contains', '18').get();
+        // console.log(resultData);
+        for(let index = 0 ; index < resultData.size ; index++){
+            console.log("data : ", resultData.docs[index].data());
+        };
+
+        for(const each of resultData.docs){
+            console.log(each.id, " => ", each.data());
+            const res = await db.doc(`Users/${each.id}`).delete();
+            console.log("res : ", res);
+        }
+
+        // Delete with Batch firebase
+        // const batch = db.batch();
+        // batch.delete();
+        // await batch.commit();
+
+        // const documentSnapshotArray = await db.collection("Users").where('born', 'not-in', [1815,1915]).get();
+
+        // let batchArray:FirebaseFirestore.WriteBatch[] = [];
+        // batchArray.push(db.batch());
+        // let operationCounter = 0;
+        // let batchIndex = 0;
+
+        // documentSnapshotArray.forEach(documentSnapshot => {
+        //     const documentData = documentSnapshot;
+
+        //     batchArray[batchIndex].delete(documentData.ref);
+        //     operationCounter++;
+
+        //     if (operationCounter === 499) {
+        //     batchArray.push(db.batch());
+        //     batchIndex++;
+        //     operationCounter = 0;
+        //     }
+        // });
+        // batchArray.forEach(async batch => await batch.commit());
+
+        // console.log("response:", response);
         message = "success callDeleteData" ;
 
         // // Delete fields
         // var userRef = db.collection('Users').doc('222');
-        // // Remove the 'born' field from the document
+        // Remove the 'born' field from the document
         // var removeBornField = userRef.update({
         //     born: firebase.firestore.FieldValue.delete()
         // });

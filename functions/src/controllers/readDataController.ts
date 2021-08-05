@@ -19,7 +19,7 @@ const queryFn = async (req: Request, res: Response) => {
         // FOR CONST
         for(const each of response.docs){
             console.log(each.id, " => ", each.data());
-            console.log(each.id, " => ", each.data().born);
+            // console.log(each.id, " => ", each.data().born);
         }
 
         // THEN CATCH
@@ -36,7 +36,7 @@ const queryFn = async (req: Request, res: Response) => {
         //     console.log("Error getting documents: ", error);
         // });
 
-        console.log("response:", response);
+        // console.log("response:", response);
         // console.log("response:", response.docs);
         message = "success callReadData" ;
 
@@ -64,17 +64,15 @@ const queryUserById = async (req: Request, res: Response) => {
 
         // test db chat
         // results => 0 - N
-        const response = await db.collection("ChatRooms ").where("Id0001", "in", ["OwnerUserId", "ChatToUserId"]).get();
+        const response = await db.collection('ChatRooms').where("Id0001", "in", ["OwnerUserId", "ChatToUserId"]).get();
         if (response.size > 0 ){
             // result data -> cast to class
             const list = response.docs.map((doc) => {
                 console.log(doc.data());
-                
                 return doc.data() as Classroom;
             }).filter(x=> x.firstname === '');
             console.log("response.each:", list);
             return list;
-            
         }
         // return null;
         return res.send(response);

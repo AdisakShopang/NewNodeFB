@@ -7,6 +7,7 @@ const upsertFn = async (req: Request, res: Response) => {
         // random document id
         const docId = db.collection("Users").doc().id;
         const response = await db.collection("Users").doc(docId).set({
+            ref: docId,
             first: "Fname",
             middle: "Mname",
             last: "Lname",
