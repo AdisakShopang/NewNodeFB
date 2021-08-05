@@ -2,7 +2,7 @@ import { db } from '../configs/configFirestore';
 import { Request, Response } from "express";
 
 const deleteFn = async (req: Request, res: Response) => {
-    var message:string = "default" ;
+    let message:string = "default" ;
     try{
         // Get data from request
         const docIdData:string = req.body.docId;
@@ -26,8 +26,8 @@ const deleteFn = async (req: Request, res: Response) => {
 
         for(const each of resultData.docs){
             console.log(each.id, " => ", each.data());
-            const res = await db.doc(`Users/${each.id}`).delete();
-            console.log("res : ", res);
+            const deletedRes = await db.doc(`Users/${each.id}`).delete();
+            console.log("deletedRes : ", deletedRes);
         }
 
         // Delete with Batch firebase

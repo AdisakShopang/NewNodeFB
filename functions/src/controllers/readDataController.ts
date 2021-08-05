@@ -2,7 +2,7 @@ import { db } from '../configs/configFirestore';
 import { Request, Response } from "express";
 
 const queryFn = async (req: Request, res: Response) => {
-    var message:string = "default" ;
+    let message:string = "default" ;
     try{
         // Read data
         const response = await db.collection("Users")
@@ -17,8 +17,10 @@ const queryFn = async (req: Request, res: Response) => {
         //         });
 
         // FOR CONST
+        const list:FirebaseFirestore.DocumentData = [];
         for(const each of response.docs){
             console.log(each.id, " => ", each.data());
+            list.push(each.data());
             // console.log(each.id, " => ", each.data().born);
         }
 
@@ -38,7 +40,8 @@ const queryFn = async (req: Request, res: Response) => {
 
         // console.log("response:", response);
         // console.log("response:", response.docs);
-        message = "success callReadData" ;
+        // message = "success callReadData" ;
+        return res.send(list);
 
     }catch(e){
         console.log("e:", e);
@@ -49,6 +52,7 @@ const queryFn = async (req: Request, res: Response) => {
 
 const queryUserById = async (req: Request, res: Response) => {
     try{
+        console.log('queryUserById');
         // let response = await db.collection("Users").doc('111').get()
         // // FOR CONST
         // // for(const each of response.docs){
@@ -64,15 +68,15 @@ const queryUserById = async (req: Request, res: Response) => {
 
         // test db chat
         // results => 0 - N
-        const response = await db.collection('ChatRooms').where("Id0001", "in", ["OwnerUserId", "ChatToUserId"]).get();
+        const response = await db.collection('ChatRooms').where("OwnerUserId", "in", ["Id0001", "Id0002"]).get();
         if (response.size > 0 ){
             // result data -> cast to class
             const list = response.docs.map((doc) => {
                 console.log(doc.data());
-                return doc.data() as Classroom;
-            }).filter(x=> x.firstname === '');
+                return doc.data() /*as Classroom*/;
+            })/*.filter(x => x.firstname === '');*/
             console.log("response.each:", list);
-            return list;
+            return res.send(list);
         }
         // return null;
         return res.send(response);

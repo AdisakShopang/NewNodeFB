@@ -1,6 +1,4 @@
 class Classroom {
-    firstname: string = "";
-    lastname: string = "";
-  
-
-  }
+  firstname: string = "";
+  lastname: string = "";
+}

@@ -2,7 +2,7 @@ import { db } from '../configs/configFirestore';
 import { Request, Response } from "express";
 
 const upsertFn = async (req: Request, res: Response) => {
-    var message:string = 'default';
+    let message:string = 'default';
     try{
         // random document id
         const docId = db.collection("Users").doc().id;
@@ -14,7 +14,7 @@ const upsertFn = async (req: Request, res: Response) => {
             born: 1815,
             dead: 1995
         }, { merge: true })
-        
+
         console.log("response:", response);
         message = "success callAddData" ;
 
