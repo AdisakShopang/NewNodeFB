@@ -4,18 +4,6 @@ import { Request, Response } from "express";
 const deleteFn = async (req: Request, res: Response) => {
     let message:string = "default" ;
     try{
-        // Get data from request
-        const docIdData:string = req.body.docId;
-        console.log(docIdData);
-
-        // Delete documents
-        // const response = await db.collection("Users").doc(docIdData).delete();
-        // .then(() => {
-        //     console.log("Document successfully deleted!");
-        // }).catch((error) => {
-        //     console.error("Error removing document: ", error);
-        // });
-
         // Delete all with condition
         const resultData = await db.collection("Users").where('born', 'not-in', [1815,1915]).get();
         // const resultData = await db.collection("Users").where('arrayField', 'array-contains', '18').get();
